@@ -1,6 +1,7 @@
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import IRestaurante from "../../interfaces/IRestaurante";
 
 const AdministracaoRestaurantes = () => {
@@ -25,7 +26,12 @@ const AdministracaoRestaurantes = () => {
                         <TableCell>
                             Nome
                         </TableCell>
-
+                        <TableCell>
+                            Editar
+                        </TableCell>
+                        <TableCell>
+                            Deletar
+                        </TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -33,6 +39,16 @@ const AdministracaoRestaurantes = () => {
                         <TableRow>
                             <TableCell>
                                 {restaurante?.nome}
+                            </TableCell>
+                            <TableCell>
+                                <Button type={'button'} variant="text">
+                                    [<Link to={`/admin/restaurantes/${restaurante?.id}`}>Editar</Link>]
+                                </Button>
+                            </TableCell>
+                            <TableCell>
+                                <Button type={'button'} variant="outlined" color="error">
+                                    Excluir
+                                </Button>
                             </TableCell>
                         </TableRow>
                     )}
