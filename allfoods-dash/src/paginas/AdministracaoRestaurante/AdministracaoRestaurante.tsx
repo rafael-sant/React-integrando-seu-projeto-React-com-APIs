@@ -2,6 +2,7 @@ import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, 
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import http from "../../http";
 import IRestaurante from "../../interfaces/IRestaurante";
 
 const AdministracaoRestaurantes = () => {
@@ -9,7 +10,7 @@ const AdministracaoRestaurantes = () => {
     const [restaurantes, setRestaurantes] = useState<IRestaurante[]>([])
 
     useEffect(() => {
-        axios.get('http://localhost:8000/api/v2/restaurantes/')
+        http.get('restaurantes/')
             .then((response) => {
                 setRestaurantes(response?.data)
 
@@ -17,6 +18,16 @@ const AdministracaoRestaurantes = () => {
                 console.log(error)
             })
     }, [])
+
+    const excluir = (restauranteApagado: any) => { 
+        http.delete(`restaurantes/${restauranteApagado.id}/`)
+        .then((response) => { 
+            const listaRestaurante = restaurantes.filter(restaurante => restauranteApagado.id !== restaurante.id)
+            setRestaurantes(listaRestaurante)
+        }).catch((error) => {
+            console.log(error)
+        })
+    }
 
     return (
         <TableContainer component={Paper}>
@@ -30,7 +41,7 @@ const AdministracaoRestaurantes = () => {
                             Editar
                         </TableCell>
                         <TableCell>
-                            Deletar
+                            Excluir
                         </TableCell>
                     </TableRow>
                 </TableHead>
@@ -46,7 +57,7 @@ const AdministracaoRestaurantes = () => {
                                 </Button>
                             </TableCell>
                             <TableCell>
-                                <Button type={'button'} variant="outlined" color="error">
+                                <Button type={'button'} variant="outlined" color="error" onClick={() => excluir(restaurante)}>
                                     Excluir
                                 </Button>
                             </TableCell>

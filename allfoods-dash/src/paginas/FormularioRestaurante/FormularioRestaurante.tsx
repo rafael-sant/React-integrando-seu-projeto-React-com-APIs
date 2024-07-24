@@ -1,7 +1,7 @@
-import { Button, TextField } from "@mui/material";
-import axios from "axios";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import http from "../../http";
 
 const FormularioRestaurante = () => {
     const [nomeRestaurante, setNomeRestaurante] = useState('')
@@ -10,7 +10,7 @@ const FormularioRestaurante = () => {
 
     useEffect(() => {
         if (parametros.id) {
-            axios.get(`http://localhost:8000/api/v2/restaurantes/${parametros.id}/`)
+            http.get(`restaurantes/${parametros.id}/`)
                 .then((response) => {
                     setNomeRestaurante(response.data.nome)
                 })
@@ -21,34 +21,42 @@ const FormularioRestaurante = () => {
         evento.preventDefault();
 
         if (parametros.id) {
-            axios.put(`http://localhost:8000/api/v2/restaurantes/${parametros.id}/`,
-            {
-                nome: nomeRestaurante
-            }).then((response) => {
-
-                alert("Att Foi")
-            })
-        } else {
-            axios.post('http://localhost:8000/api/v2/restaurantes/',
+            http.put(`restaurantes/${parametros.id}/`,
                 {
                     nome: nomeRestaurante
                 }).then((response) => {
-                    alert("Foi")
+                    alert("Atualização OK!")
+                    setNomeRestaurante('')
+
+                })
+        } else {
+            http.post('restaurantes/',
+                {
+                    nome: nomeRestaurante
+                }).then((response) => {
+                    alert("OK!")
+                    setNomeRestaurante('')
                 })
         }
     }
 
     return (
-        <form onSubmit={aoSubmeterForm}>
-            <TextField
-                value={nomeRestaurante}
-                onChange={(evento) =>
-                    setNomeRestaurante(evento.target.value)
-                }
-                label="Nome do restaurante"
-                variant="standard" />
-            <Button type={'submit'} variant="contained">Adicionar</Button>
-        </form>
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: "center", justifyContent: "center" }}>
+            <Box component="form" onSubmit={aoSubmeterForm}>
+                <Typography>Formulário de restaurantes</Typography>
+                <TextField
+                    value={nomeRestaurante}
+                    onChange={(evento) =>
+                        setNomeRestaurante(evento.target.value)
+                    }
+                    label="Nome do restaurante"
+                    fullWidth
+                    required
+                    variant="standard" />
+                <Button sx={{marginTop: '20px'}} type={'submit'} fullWidth variant="contained">Adicionar</Button>
+            </Box>
+        </Box>
+
     )
 }
 

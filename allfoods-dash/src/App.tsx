@@ -8,8 +8,6 @@ import VitrineRestaurantes from './paginas/VitrineRestaurantes';
 
 function App() {
 
-  
-
     return (
         <Routes>
             <Route path="/" element={<Home />} />
