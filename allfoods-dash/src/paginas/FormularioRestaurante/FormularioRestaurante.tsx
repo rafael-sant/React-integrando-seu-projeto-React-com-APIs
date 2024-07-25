@@ -41,22 +41,25 @@ const FormularioRestaurante = () => {
     }
 
     return (
-        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: "center", justifyContent: "center" }}>
-            <Box component="form" onSubmit={aoSubmeterForm}>
-                <Typography>Formulário de restaurantes</Typography>
-                <TextField
-                    value={nomeRestaurante}
-                    onChange={(evento) =>
-                        setNomeRestaurante(evento.target.value)
-                    }
-                    label="Nome do restaurante"
-                    fullWidth
-                    required
-                    variant="standard" />
-                <Button sx={{marginTop: '20px'}} type={'submit'} fullWidth variant="contained">Adicionar</Button>
-            </Box>
-        </Box>
+        <>
+            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: "center", justifyContent: "center", width: "100%" }}>
+                <Typography component="h1" variant="h6" sx={{ mt: 3, width: "70%" }}>Formulário de restaurantes</Typography>
 
+                <Box component="form" onSubmit={aoSubmeterForm} sx={{ width: "70%" }}>
+                    <TextField
+                        value={nomeRestaurante}
+                        onChange={(evento) =>
+                            setNomeRestaurante(evento.target.value)
+                        }
+                        label="Nome do restaurante"
+                        fullWidth
+                        required
+                        variant="standard" />
+
+                    <Button sx={{ marginTop: '20px' }} type={'submit'} fullWidth variant="contained">Adicionar</Button>
+                </Box>
+            </Box>
+        </>
     )
 }
 
