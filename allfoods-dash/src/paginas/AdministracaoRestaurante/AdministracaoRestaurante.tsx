@@ -1,5 +1,4 @@
-import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
-import axios from "axios";
+import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import http from "../../http";
@@ -30,7 +29,7 @@ const AdministracaoRestaurantes = () => {
     }
 
     return (
-        <TableContainer component={Paper}>
+        <TableContainer>
             <Table>
                 <TableHead>
                     <TableRow>
